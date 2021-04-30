@@ -75,21 +75,21 @@ namespace Shiny.Notifications
         }
 
 
-        public async Task<IEnumerable<Notification>> GetPending()
-            => await this.services.Repository.GetAll<Notification>();
+        public Task<IReadOnlyList<Notification>> GetPending()
+            => this.services.Repository.GetAll<Notification>();
 
 
-        public async Task Clear()
+        public Task Clear()
         {
             ToastNotificationManagerCompat.History.Clear();
-            await this.services.Repository.Clear<Notification>();
+            return this.services.Repository.Clear<Notification>();
         }
 
 
-        public async Task Cancel(int id)
+        public Task Cancel(int id)
         {
             ToastNotificationManagerCompat.History.Remove(id.ToString());
-            await this.services.Repository.Remove<Notification>(id.ToString());
+            return this.services.Repository.Remove<Notification>(id.ToString());
         }
 
 
@@ -106,7 +106,7 @@ namespace Shiny.Notifications
         }
 
 
-        public Task<IList<Channel>> GetChannels() => this.services.Repository.GetChannels();
+        public Task<IReadOnlyList<Channel>> GetChannels() => this.services.Repository.GetChannels();
         public Task AddChannel(Channel channel) => this.services.Repository.SetChannel(channel);
         public Task RemoveChannel(string channelId) => this.services.Repository.RemoveChannel(channelId);
         public Task ClearChannels() => this.services.Repository.RemoveAllChannels();

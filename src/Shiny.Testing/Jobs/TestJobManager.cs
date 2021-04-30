@@ -28,7 +28,7 @@ namespace Shiny.Testing.Jobs
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<JobInfo>> GetJobs()
+        public Task<IReadOnlyList<JobInfo>> GetJobs()
         {
             throw new NotImplementedException();
         }
@@ -49,12 +49,12 @@ namespace Shiny.Testing.Jobs
             return Task.FromResult(new JobRunResult(null, null));
         }
 
-        public Task<IEnumerable<JobRunResult>> RunAll(CancellationToken cancelToken = default, bool runSequentially = false)
+        public Task<IReadOnlyList<JobRunResult>> RunAll(CancellationToken cancelToken = default, bool runSequentially = false)
         {
             this.IsRunning = true;
 
             this.IsRunning = false;
-            return Task.FromResult(Enumerable.Empty<JobRunResult>());
+            return Task.FromResult<IReadOnlyList<JobRunResult>>(new List<JobRunResult>(0));
         }
 
 

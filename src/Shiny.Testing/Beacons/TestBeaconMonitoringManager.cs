@@ -10,15 +10,16 @@ namespace Shiny.Testing.Beacons
 {
     public class TestBeaconMonitoringManager : NotifyPropertyChanged, IBeaconMonitoringManager
     {
-        readonly IList<BeaconRegion> regions = new List<BeaconRegion>();
-
+        readonly List<BeaconRegion> regions = new List<BeaconRegion>();
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public Task<IEnumerable<BeaconRegion>> GetMonitoredRegions()
-            => Task.FromResult<IEnumerable<BeaconRegion>>(this.regions);
+        public Task<IReadOnlyList<BeaconRegion>> GetMonitoredRegions()
+            => Task.FromResult<IReadOnlyList<BeaconRegion>>(this.regions.AsReadOnly());
 
 
         public AccessState CurrentAccessState { get; set; } = AccessState.Available;
+
+
         string? title;
         public string? Title
         {

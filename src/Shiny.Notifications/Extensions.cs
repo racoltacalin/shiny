@@ -114,10 +114,12 @@ namespace Shiny.Notifications
             }
         }
 
+
         public static Task<Channel?> GetChannel(this IRepository repository, string channelIdentifier)
             => repository.Get<Channel>(channelIdentifier);
 
-        public static Task<IList<Channel>> GetChannels(this IRepository repository)
+
+        public static Task<IReadOnlyList<Channel>> GetChannels(this IRepository repository)
             => repository.GetAll<Channel>();
 
 

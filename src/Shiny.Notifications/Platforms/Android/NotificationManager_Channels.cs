@@ -35,7 +35,7 @@ namespace Shiny.Notifications
         }
 
 
-        public Task<IList<Channel>> GetChannels()
+        public Task<IReadOnlyList<Channel>> GetChannels()
             => this.core.Repository.GetChannels();
 
 

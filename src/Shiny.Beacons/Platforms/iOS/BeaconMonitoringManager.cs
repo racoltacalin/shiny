@@ -61,7 +61,7 @@ namespace Shiny.Beacons
                 this.manager.StopMonitoring(region);
         }
 
-        public async Task<IEnumerable<BeaconRegion>> GetMonitoredRegions()
-            => await this.repository.GetAll<BeaconRegion>();
+        public Task<IReadOnlyList<BeaconRegion>> GetMonitoredRegions()
+            => this.repository.GetAll<BeaconRegion>();
     }
 }

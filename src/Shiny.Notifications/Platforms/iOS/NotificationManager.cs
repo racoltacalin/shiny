@@ -97,13 +97,16 @@ namespace Shiny.Notifications
         }
 
 
-        public Task<IEnumerable<Notification>> GetPending() => Dispatcher.InvokeOnMainThread<IEnumerable<Notification>>(async tcs =>
+        public Task<IReadOnlyList<Notification>> GetPending() => Dispatcher.InvokeOnMainThread<IReadOnlyList<Notification>>(async tcs =>
         {
             var requests = await UNUserNotificationCenter
                 .Current
                 .GetPendingNotificationRequestsAsync();
 
-            var notifications = requests.Select(x => x.FromNative());
+            var notifications = requests
+                .Select(x => x.FromNative())
+                .ToList()
+                .AsReadOnly();
             tcs.SetResult(notifications);
         });
 
@@ -141,7 +144,7 @@ namespace Shiny.Notifications
         });
 
 
-        public Task<IList<Channel>> GetChannels()
+        public Task<IReadOnlyList<Channel>> GetChannels()
             => this.services.Repository.GetChannels();
 
 

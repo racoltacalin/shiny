@@ -47,7 +47,7 @@ namespace Shiny.Jobs
         /// <param name="cancelToken"></param>
         /// <param name="runSequentially"></param>
         /// <returns></returns>
-        Task<IEnumerable<JobRunResult>> RunAll(CancellationToken cancelToken = default, bool runSequentially = false);
+        Task<IReadOnlyList<JobRunResult>> RunAll(CancellationToken cancelToken = default, bool runSequentially = false);
 
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Shiny.Jobs
         /// Gets current registered jobs
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<JobInfo>> GetJobs();
+        Task<IReadOnlyList<JobInfo>> GetJobs();
 
 
         /// <summary>

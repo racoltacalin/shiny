@@ -24,6 +24,6 @@ namespace Shiny.Locations.Infrastructure
         public abstract Task StopMonitoring(string identifier);
         public abstract Task StopAllMonitoring();
         public abstract Task<GeofenceState> RequestState(GeofenceRegion region, CancellationToken cancelToken = default);
-        public virtual async Task<IEnumerable<GeofenceRegion>> GetMonitorRegions() => await this.Repository.GetAll();
+        public virtual Task<IReadOnlyList<GeofenceRegion>> GetMonitorRegions() => this.Repository.GetAll();
     }
 }

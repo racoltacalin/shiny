@@ -49,7 +49,6 @@ namespace Shiny.Locations
         /// <returns></returns>
         Task StartListener(GpsRequest request);
 
-
         /// <summary>
         /// Stop the GPS listener
         /// </summary>

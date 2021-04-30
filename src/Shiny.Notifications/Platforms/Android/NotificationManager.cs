@@ -36,22 +36,22 @@ namespace Shiny.Notifications
         }
 
 
-        public async Task Cancel(int id)
+        public Task Cancel(int id)
         {
             this.manager.NativeManager.Cancel(id);
-            await this.core.Repository.Remove<Notification>(id.ToString());
+            return this.core.Repository.Remove<Notification>(id.ToString());
         }
 
 
-        public async Task Clear()
+        public Task Clear()
         {
             this.manager.NativeManager.CancelAll();
-            await this.core.Repository.Clear<Notification>();
+            return this.core.Repository.Clear<Notification>();
         }
 
 
-        public async Task<IEnumerable<Notification>> GetPending()
-            => await this.core.Repository.GetAll<Notification>();
+        public Task<IReadOnlyList<Notification>> GetPending()
+            => this.core.Repository.GetAll<Notification>();
 
 
         public async Task<AccessState> RequestAccess()
@@ -76,7 +76,7 @@ namespace Shiny.Notifications
             if (notification.ScheduleDate == null)
                 this.manager.SendNative(notification.Id, builder.Build());
             else
-                await this.core.Repository.Set(notification.Id.ToString(), notification);        
+                await this.core.Repository.Set(notification.Id.ToString(), notification);
         }
 
         public int Badge { get; set; }

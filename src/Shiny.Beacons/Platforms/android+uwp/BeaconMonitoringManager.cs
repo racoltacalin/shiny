@@ -87,7 +87,7 @@ namespace Shiny.Beacons
         }
 
 
-        public async Task<IEnumerable<BeaconRegion>> GetMonitoredRegions()
+        public async Task<IReadOnlyList<BeaconRegion>> GetMonitoredRegions()
             => await this.repository.GetAll<BeaconRegion>();
 
 

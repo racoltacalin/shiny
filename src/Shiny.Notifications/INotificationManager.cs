@@ -33,7 +33,7 @@ namespace Shiny.Notifications
         /// Gets list of channels
         /// </summary>
         /// <returns></returns>
-        Task<IList<Channel>> GetChannels();
+        Task<IReadOnlyList<Channel>> GetChannels();
 
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Shiny.Notifications
         /// Gets all pending notifications
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Notification>> GetPending();
+        Task<IReadOnlyList<Notification>> GetPending();
 
 
         /// <summary>

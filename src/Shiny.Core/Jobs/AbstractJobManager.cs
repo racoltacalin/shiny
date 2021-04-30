@@ -73,10 +73,13 @@ namespace Shiny.Jobs
         }
 
 
-        public async Task<IEnumerable<JobInfo>> GetJobs()
+        public async Task<IReadOnlyList<JobInfo>> GetJobs()
         {
             var jobs = await this.repository.GetAll<PersistJobInfo>();
-            return jobs.Select(PersistJobInfo.FromPersist);
+            return jobs
+                .Select(PersistJobInfo.FromPersist)
+                .ToList()
+                .AsReadOnly();
         }
 
 
@@ -129,7 +132,7 @@ namespace Shiny.Jobs
         }
 
 
-        public async Task<IEnumerable<JobRunResult>> RunAll(CancellationToken cancelToken, bool runSequentially)
+        public async Task<IReadOnlyList<JobRunResult>> RunAll(CancellationToken cancelToken, bool runSequentially)
         {
             var list = new List<JobRunResult>();
 
@@ -175,7 +178,7 @@ namespace Shiny.Jobs
                     this.IsRunning = false;
                 }
             }
-            return list;
+            return list.AsReadOnly();
         }
 
 

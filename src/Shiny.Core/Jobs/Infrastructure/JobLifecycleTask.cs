@@ -56,7 +56,7 @@ namespace Shiny.Jobs.Infrastructure
             if (running)
                 return;
 
-            var jobs = await this.jobManager.GetJobs();
+            var jobs = (await this.jobManager.GetJobs()).AsEnumerable();
             if (predicate != null)
                 jobs = jobs.Where(predicate);
 

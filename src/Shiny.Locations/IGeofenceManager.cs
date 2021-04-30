@@ -28,7 +28,7 @@ namespace Shiny.Locations
         /// <summary>
         /// Current set of geofences being monitored
         /// </summary>
-        Task<IEnumerable<GeofenceRegion>> GetMonitorRegions();
+        Task<IReadOnlyList<GeofenceRegion>> GetMonitorRegions();
 
         /// <summary>
         /// Start monitoring a geofence

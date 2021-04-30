@@ -25,12 +25,11 @@ namespace Shiny.Testing.Locations
         }
 
 
-        readonly IList<GeofenceRegion> regions = new List<GeofenceRegion>();
-        public IReadOnlyList<GeofenceRegion> MonitoredRegions => this.regions.ToList();
+        readonly List<GeofenceRegion> regions = new List<GeofenceRegion>();
 
 
-        public Task<IEnumerable<GeofenceRegion>> GetMonitorRegions()
-            => Task.FromResult<IEnumerable<GeofenceRegion>>(this.MonitoredRegions);
+        public Task<IReadOnlyList<GeofenceRegion>> GetMonitorRegions()
+            => Task.FromResult<IReadOnlyList<GeofenceRegion>>(this.regions.AsReadOnly());
 
 
         public Task<AccessState> RequestAccess() => Task.FromResult(this.Status);
@@ -68,6 +67,7 @@ namespace Shiny.Testing.Locations
 
             return Task.CompletedTask;
         }
+
 
         public IObservable<AccessState> WhenAccessStatusChanged() => this.accessSubject;
     }

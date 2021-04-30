@@ -43,7 +43,7 @@ namespace Shiny.Infrastructure
         }
 
 
-        public async Task<List<TArgs>> GetAll()
+        public async Task<IReadOnlyList<TArgs>> GetAll()
         {
             var regions = await this.Repository
                 .GetAll<TStore>()

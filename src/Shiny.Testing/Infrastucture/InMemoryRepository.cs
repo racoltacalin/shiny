@@ -20,7 +20,7 @@ namespace Shiny.Testing.Infrastucture
 
 
         public Task<bool> Exists<T>(string key) where T : class
-        { 
+        {
             var result = false;
             if (this.data.ContainsKey(typeof(T)))
                 result = this.data[typeof(T)].ContainsKey(key);
@@ -34,7 +34,7 @@ namespace Shiny.Testing.Infrastucture
             var result = default(T);
 
             if (this.data.ContainsKey(typeof(T)))
-            { 
+            {
                 var dict = this.data[typeof(T)];
                 if (dict.ContainsKey(key))
                     result = (T)dict[key];
@@ -43,21 +43,21 @@ namespace Shiny.Testing.Infrastucture
         }
 
 
-        public Task<IList<T>> GetAll<T>() where T : class
+        public Task<IReadOnlyList<T>> GetAll<T>() where T : class
         {
-            IList<T> result = this.data[typeof(T)]?.Values.OfType<T>().ToList() ?? new List<T>();
-            return Task.FromResult(result);
+            var result = this.data[typeof(T)]?.Values.OfType<T>().ToList() ?? new List<T>(0);
+            return Task.FromResult<IReadOnlyList<T>>(result.AsReadOnly());
         }
 
 
-        public Task<IDictionary<string, T>> GetAllWithKeys<T>() where T : class
+        public Task<IReadOnlyDictionary<string, T>> GetAllWithKeys<T>() where T : class
         {
-            IDictionary<string, T> result = this.data[typeof(T)]?.ToDictionary(
+            var result = this.data[typeof(T)]?.ToDictionary(
                 x => x.Key,
                 x => (T)x.Value
-            ) ?? new Dictionary<string, T>();
+            ) ?? new Dictionary<string, T>(0);
 
-            return Task.FromResult(result);
+            return Task.FromResult<IReadOnlyDictionary<string, T>>(result);
         }
 
 

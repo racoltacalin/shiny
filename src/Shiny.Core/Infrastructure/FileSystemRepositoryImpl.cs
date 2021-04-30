@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,7 +43,7 @@ namespace Shiny.Infrastructure
         }
 
 
-        public async Task<IDictionary<string, T>> GetAllWithKeys<T>() where T : class
+        public async Task<IReadOnlyDictionary<string, T>> GetAllWithKeys<T>() where T : class
         {
             var result = new Dictionary<string, T>();
             await this.InTransaction(typeof(T), list =>
@@ -54,11 +55,11 @@ namespace Shiny.Infrastructure
         }
 
 
-        public async Task<IList<T>> GetAll<T>() where T : class
+        public async Task<IReadOnlyList<T>> GetAll<T>() where T : class
         {
             var result = new List<T>();
             await this.InTransaction(typeof(T), list => result.AddRange(list.Values.OfType<T>()));
-            return result;
+            return result.AsReadOnly();
         }
 
 

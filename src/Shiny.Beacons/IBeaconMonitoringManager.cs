@@ -17,7 +17,7 @@ namespace Shiny.Beacons
         /// <summary>
         /// Current set of geofences being monitored
         /// </summary>
-        Task<IEnumerable<BeaconRegion>> GetMonitoredRegions();
+        Task<IReadOnlyList<BeaconRegion>> GetMonitoredRegions();
 
 
         /// <summary>

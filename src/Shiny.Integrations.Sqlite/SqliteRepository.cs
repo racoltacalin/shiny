@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Shiny.Infrastructure;
 using Shiny.Models;
@@ -46,14 +47,14 @@ namespace Shiny.Integrations.Sqlite
         }
 
 
-        public async Task<IList<T>> GetAll<T>() where T : class
+        public async Task<IReadOnlyList<T>> GetAll<T>() where T : class
         {
             var result = await this.GetAllWithKeys<T>();
-            return new List<T>(result.Values);
+            return result.Values.ToList().AsReadOnly();
         }
 
 
-        public async Task<IDictionary<string, T>> GetAllWithKeys<T>() where T : class
+        public async Task<IReadOnlyDictionary<string, T>> GetAllWithKeys<T>() where T : class
         {
             var dict = new Dictionary<string, T>();
             var items = await this.conn
@@ -68,6 +69,7 @@ namespace Shiny.Integrations.Sqlite
             }
             return dict;
         }
+
 
         public async Task<bool> Remove<T>(string key) where T : class
         {
